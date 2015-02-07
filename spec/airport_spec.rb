@@ -1,10 +1,13 @@
 require './lib/airport'
-require './lib/plane'
 
 describe Airport do
 
-let(:airport){Airport.new}
-let(:plane){Plane.new}
+let(:airport){Airport.new(capacity: 25)}
+let(:plane){double :plane}
+
+it 'should allow a capacity to be set on initiation' do
+	expect(airport.capacity).to eq(25)
+end
 
 it 'should accept a plane for landing' do
 	expect(airport.plane_count).to eq(0)
@@ -18,8 +21,19 @@ it 'should release a plane for take-off' do
 	expect(airport.plane_count).to eq(0)	
 end
 
+it 'should not accept a plane if the airport is full' do
+	airport.capacity.times{airport.accept_for_landing(plane)}
+	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Airport is full')
+end
 
+it 'should not accept a plane if the airport is full' do
+	expect{airport.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Airport is empty')
+end
 
+#it 'should provide the list of landed and flying planes' do
+#	flying_plane, landed_plane = Plane.new, Plane.new
+#	landed_plane.land!
+#end
 
 
 end

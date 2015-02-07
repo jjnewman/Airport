@@ -1,7 +1,13 @@
 class Airport
 
+attr_writer :capacity
+
 DEFAULT_CAPACITY = 50
 LANDED_PLANES = Proc.new {|plane| !plane.flying?}
+
+def initialize(options = {})
+	self.capacity = options.fetch(:capacity, capacity)
+end
 
 def planes
 	@planes ||= []

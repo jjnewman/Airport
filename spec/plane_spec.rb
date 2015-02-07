@@ -9,11 +9,11 @@ it 'has a flying status when created' do
 end
 
 it 'should have a flying status after taking off' do
-	expect(plane.take_off!).to be_flying
+	expect(plane.taken_off!).to be_flying
 end
 
 it 'should not have a flying status after landing' do
-	expect(plane.land!).not_to be_flying
+	expect(plane.landed!).not_to be_flying
 end
 	
 end

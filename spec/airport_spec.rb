@@ -3,46 +3,23 @@ require 'airport'
 describe Airport do
 
 let(:airport){Airport.new(capacity: 25)}
-let(:plane){double :plane}
+let(:plane){double :plane, flying?: nil}
+let(:landed_planes){double :plane, flying?: false}
 
 it 'should allow a capacity to be set on initiation' do
 	expect(airport.capacity).to eq(25)
 end
 
-it 'should accept a plane for landing' do
-	expect(airport.plane_count).to eq(0)
+it 'can accept a plane for landing' do
+	expect(airport.landed_planes.count).to eq(0)
 	airport.accept_for_landing(plane)
-	expect(airport.plane_count).to eq(1)
+	expect(airport.landed_planes.count).to eq(1)
 end
 
-it 'should release a plane for take-off' do
+it 'can release a plane for take-off' do
 	airport.accept_for_landing(plane)
 	airport.release_for_takeoff(plane)
-	expect(airport.plane_count).to eq(0)	
+	expect(airport.landed_planes.count).to eq(0)	
 end
-
-it 'should not accept a plane if the airport is full' do
-	airport.capacity.times{airport.accept_for_landing(plane)}
-	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Airport is full')
-end
-
-it 'should not release a plane if the airport is empty' do
-	expect{airport.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Airport is empty')
-end
-
-it 'should not accept a plane if the weather is stormy' do
-	(expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if airport.stormy?
-end
-
-it 'should not release a plane if the weather is stormy' do
-	(expect{airport.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if airport.stormy?
-end
-
-
-#it 'should provide the list of landed and flying planes' do
-#	flying_plane, landed_plane = Plane.new, Plane.new
-#	landed_plane.land!
-#end
-
 
 end

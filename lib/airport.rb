@@ -9,7 +9,6 @@ attr_writer :capacity
 DEFAULT_CAPACITY = 50
 LANDED_PLANES = Proc.new {|plane| !plane.flying?}
 
-
 def initialize(options = {})
 	self.capacity = options.fetch(:capacity, capacity)
 end
@@ -23,7 +22,6 @@ def capacity
 end
 
 def accept_for_landing(plane)
-#raise "Airport is full" if full?
 	planes << plane
 end
 
@@ -34,12 +32,5 @@ end
 def landed_planes
 	planes.select &LANDED_PLANES
 end
-
-
-#def landed_planes_count
-#	landed_planes.count
-#end
-
-
 
 end

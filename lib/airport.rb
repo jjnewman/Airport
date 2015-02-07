@@ -1,4 +1,8 @@
+require_relative 'weather'
+
 class Airport
+
+include Weather
 
 attr_writer :capacity
 
@@ -23,13 +27,13 @@ end
 
 def accept_for_landing(plane)
 	raise "Airport is full" if full?
-	#raise "Weather is stormy" if stormy?
+	raise "Weather is stormy" if stormy?
 	planes << plane
 end
 
 def release_for_takeoff(plane)
     raise "Airport is empty" if empty?
-    #raise "Weather is stormy" if stormy?
+    raise "Weather is stormy" if stormy?
     planes.delete(plane)
 end
 
@@ -48,13 +52,5 @@ end
 def flying_planes
 	planes.reject &LANDED_PLANES
 end
-
-
-
-
-
-
-
-
 
 end

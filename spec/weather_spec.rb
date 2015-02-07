@@ -1,5 +1,5 @@
 
-require './lib/weather'
+require 'weather'
 
 class WeatherClass; include Weather; end
 

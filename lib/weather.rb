@@ -1,9 +1,5 @@
 module Weather
 
-def initialize
-	current_condition!
-end
-
 def sunny?
 	@sunny
 end

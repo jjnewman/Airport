@@ -8,9 +8,19 @@ def stormy?
 	@stormy
 end
 
-def current_condition!
+def randomizer
 	prng = Random.new
-	prng.rand(1..10) != 10? (@sunny = true && @stormy = false) : (@stormy = true && @stormy = false)
+	prng.rand(1..10) 
+end
+
+def current_condition!
+	if randomizer < 10 
+		@sunny = true 
+		@stormy = false
+	else
+		@stormy = true 
+		@sunny = false
+	end
 	self
 end
 

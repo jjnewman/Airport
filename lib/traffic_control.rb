@@ -1,53 +1,28 @@
 class Traffic_control < Airport
 
-def accept_for_landing(plane)
-	raise "Airport is full" if full?
-	storm_message
-	planes << plane
-end
-
-def release_for_takeoff(plane)
-    raise "Airport is empty" if empty?
-    storm_message
-    planes.delete(plane)
-end
-
-def storm_message
-	raise "Weather is stormy" if stormy?
-end
-
 def flying_planes
-	planes.reject &LANDED_PLANES
+	$flying_planes
 end
 
-def full?
-	landed_planes.count >= capacity
-end
-
-def empty?
-	landed_planes.count == 0
+def display_all_planes
+	puts "The planes currently in the air are:"
+	puts flying_planes
+	puts "\n--------\n"
+	puts "The planes currently in the airport are:"
+	puts airport_planes
 end
 
 def plane_sequence_landing
 	flying_planes.each do |plane| 
-		while landed_planes.count <= capacity
-			plane.landed!
-			puts "plane landed"
-			landed_planes << plane
-			flying_planes.delete(plane)
-		end	
+		accept_for_landing(plane)
+		puts "plane #{plane} landed"
 	end
-	plane_sequence_taking_off
 end
 
 def plane_sequence_taking_off
-	landed_planes.each do |plane| 
-		while landed_planes.count > 0
-			plane.taken_off!
-			puts "plane taken off"
-			flying_planes << plane
-			landed_planes.delete(plane)
-		end	
+	airport_planes.each do |plane| 
+		release_for_takeoff(plane)
+		puts "plane #{plane} taken off"
 	end
 end
 end

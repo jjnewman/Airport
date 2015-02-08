@@ -3,24 +3,9 @@ require 'traffic_control'
 describe Traffic_control do
 
 let(:control){Traffic_control.new}
-let(:plane){double :plane, flying?: nil}
+let(:plane){double :plane, take_off!: nil, land!: nil}
 
-it 'should not accept a plane if the airport is full' do
-	control.capacity.times{control.accept_for_landing(plane)}
-	expect{control.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Airport is full')
-end
 
-it 'should not release a plane if the airport is empty' do
-	expect{control.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Airport is empty')
-end
-
-it 'should not accept a plane if the weather is stormy' do
-	(expect{control.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if control.stormy?
-end
-
-it 'should not release a plane if the weather is stormy' do
-	(expect{control.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if control.stormy?
-end
 
 
 end

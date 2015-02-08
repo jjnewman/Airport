@@ -14,6 +14,10 @@ end
 
 it 'should not have a flying status after landing' do
 	expect(plane.land!).to be_grounded
+	expect(plane.land!).not_to be_flying
 end
 	
+
+
+
 end

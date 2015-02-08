@@ -14,7 +14,7 @@ def randomizer
 end
 
 def current_condition!
-	if randomizer != 10 
+	if randomizer < 10 
 		@sunny = true 
 		@stormy = false
 	else

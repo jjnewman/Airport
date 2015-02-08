@@ -1,29 +1,28 @@
 class Traffic_control < Airport
 
+def flying_planes
+	$flying_planes
+end
 
-
-
+def display_all_planes
+	puts "The planes currently in the air are:"
+	puts flying_planes
+	puts "\n--------\n"
+	puts "The planes currently in the airport are:"
+	puts airport_planes
+end
 
 def plane_sequence_landing
 	flying_planes.each do |plane| 
-		while grounded_planes.count <= capacity
-			plane.land!
-			puts "plane landed"
-			landed_planes << plane
-			flying_planes.delete(plane)
-		end	
+		accept_for_landing(plane)
+		puts "plane #{plane} landed"
 	end
-	plane_sequence_taking_off
 end
 
 def plane_sequence_taking_off
-	landed_planes.each do |plane| 
-		while landed_planes.count > 0
-			plane.taken_off!
-			puts "plane taken off"
-			flying_planes << plane
-			landed_planes.delete(plane)
-		end	
+	airport_planes.each do |plane| 
+		release_for_takeoff(plane)
+		puts "plane #{plane} taken off"
 	end
 end
 end

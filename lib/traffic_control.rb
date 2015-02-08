@@ -16,9 +16,6 @@ def storm_message
 	raise "Weather is stormy" if stormy?
 end
 
-def flying_planes
-	planes.reject &LANDED_PLANES
-end
 
 def full?
 	landed_planes.count >= capacity

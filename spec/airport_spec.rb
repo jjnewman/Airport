@@ -2,44 +2,45 @@ require 'airport'
 
 describe Airport do
 
-let(:airport){Airport.new(capacity: 25)}
-let(:plane){double :plane, land!: nil, take_off!: nil}
+let(:luton) { Airport.new} 
+let(:f16)   { double :plane }
 
-it 'should allow a capacity to be set on initiation' do
-	expect(airport.capacity).to eq(25)
-end
+	context 'when created' do
+		it 'has no planes' do
+			expect(luton.grounded_planes_count).to eq 0
+		end
 
-it 'can accept a plane for landing' do
-	expect(airport.airport_planes.count).to eq(0)
-	airport.accept_for_landing(plane)
-	expect(airport.airport_planes.count).to eq(1)
-end
+		it 'has a default capacity' do
+      expect(luton.capacity).to eq Airport::DEFAULT_CAPACITY
+    end
 
-#it 'can release a plane for take-off' do
-#	airport.accept_for_landing(plane)
-#	airport.release_for_takeoff(plane)
-#	expect(airport.planes.count).to eq(0)	
-#end
+		it 'can have a custom capacity' do
+			heathrow = Airport.new(capacity: 25)
+      expect(heathrow.capacity).to eq(25)
+		end
+  end
 
-#it 'should not accept for landing when already grounded' do
-	#airport.accept_for_landing(plane)
-#	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Already at airport')	
-#end
+  it 'can land a plane' do
+    expect(f16).to receive(:land!)
+    luton.add_plane(f16)
+  end
 
-it 'should not accept a plane if the airport is full' do
-	airport.capacity.times{airport.accept_for_landing(plane)}
-	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Airport is full')
-end
+  it 'has that plane after landing it' do
+    allow(f16).to receive(:land!)
 
-it 'should not accept a plane if the weather is stormy' do
-	(expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if airport.stormy?
-end
+    luton.add_plane(f16)
 
-it 'should not release a plane if the weather is stormy' do
-	(expect{airport.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if airport.stormy?
-end
+    expect(luton.grounded_planes_count).to eq 1
+  end
 
+  context 'weather conditions' do
+    context 'on sunny weather' do 
+      
+    end
 
-
-
+    context 'on stormy weather' do
+      
+    end
+  end
+ 
 end

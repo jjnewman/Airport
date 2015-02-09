@@ -1,30 +1,22 @@
 class Plane
 
 def initialize
-	$flying_planes ||= []
-	take_off!()
+	take_off!
 end
 
 def flying?
 	@flying
 end
 
-def grounded?
-	@grounded
-end
-
 def take_off!
 	@flying = true
-	@grounded = false
-	$flying_planes << self
 	self
 end
 
 #add airport argument?
 def land!
+	raise 'You are already landed, moron! What have you been smoking?' unless flying?
 	@flying = false
-	@grounded = true
-	$flying_planes.delete(self)
 	self
 end
 

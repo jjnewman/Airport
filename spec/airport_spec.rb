@@ -15,17 +15,6 @@ it 'can accept a plane for landing' do
 	expect(airport.airport_planes.count).to eq(1)
 end
 
-#it 'can release a plane for take-off' do
-#	airport.accept_for_landing(plane)
-#	airport.release_for_takeoff(plane)
-#	expect(airport.planes.count).to eq(0)	
-#end
-
-#it 'should not accept for landing when already grounded' do
-	#airport.accept_for_landing(plane)
-#	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Already at airport')	
-#end
-
 it 'should not accept a plane if the airport is full' do
 	airport.capacity.times{airport.accept_for_landing(plane)}
 	expect{airport.accept_for_landing(plane)}.to raise_error(RuntimeError, 'Airport is full')
@@ -38,8 +27,5 @@ end
 it 'should not release a plane if the weather is stormy' do
 	(expect{airport.release_for_takeoff(plane)}.to raise_error(RuntimeError, 'Weather is stormy')) if airport.stormy?
 end
-
-
-
 
 end

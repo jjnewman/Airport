@@ -11,4 +11,3 @@ it 'should not be sunny and stormy at the same time' do
 end
 end
 
-#test probabilities?

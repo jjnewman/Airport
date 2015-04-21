@@ -20,7 +20,6 @@ def take_off!
 	self
 end
 
-#add airport argument?
 def land!
 	@flying = false
 	@grounded = true
